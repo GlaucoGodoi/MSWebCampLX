@@ -1,0 +1,52 @@
+﻿<div class="well">
+
+    <div id="template" class="progress">
+        <div id="bar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+        </div>
+    </div>
+
+    <ul id="holder" class="list-unstyled">
+        <li>
+
+        </li>
+    </ul>
+    <label id="currentValue"></label>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="http://localhost:10572/signalr/hubs"></script>
+
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            var template = document.getElementById('template');
+
+
+            var holder = document.getElementById('holder');
+
+            $.connection.hub.url = 'http://localhost:10572/signalr';
+
+            var dataDistributorProxy = $.connection.dataDistributor;
+
+            dataDistributorProxy.client.consumeData = consumeData;
+
+            $.connection.hub.start();
+
+            function consumeData(value) {
+                var bar = template.childNodes[1];
+                bar.setAttribute('aria-valuenow', value);
+                bar.style.width = (value + '%');
+                var newLi = document.createElement('li');
+                newLi.innerHTML = template.outerHTML;
+
+                if (holder.childNodes.length > 9) {
+                    holder.removeChild(holder.childNodes[0]);
+                }
+                holder.appendChild(newLi);
+
+                //debugger;
+            }
+
+        })();
+    </script>
+}

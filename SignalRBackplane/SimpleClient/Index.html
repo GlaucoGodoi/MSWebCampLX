@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="well">
+                <input type="text" class="form-control" id="port" placeholder="Port to connect" value="8888" />
+                <input type="button" class="btn btn-info" id="connectButton" value="Connect to the port above" />
+            </div>
+            <div class="well col-md-6 pull-left disabled">
+                <h3>New message</h3>
+                <input id="message" type="text" placeholder="message" class="form-control" />
+                <input id="btnSend" type="button" class="btn btn-success" value="Send" />
+            </div>
+            <div class="col-md-5 pull-right well">
+                <ul id="messageList" class="list-unstyled"><li></li></ul>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="http://localhost:8888/signalr/hubs"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+
+            
+            var proxy = $.connection.simpleHub;
+
+            proxy.client.addNewMessage = addNewMessage;
+
+            document.getElementById('connectButton').onclick = connect;
+
+            function connect() {
+                var port = document.getElementById('port').value;
+                $.connection.hub.url = 'http://localhost:' + port + '/signalr';
+                $.connection.hub.start().done(linkServerRequest);
+            }
+
+            function addNewMessage(message) {
+                var newLi = document.createElement('li');
+                newLi.innerHTML = message;
+                var holder = document.getElementById('messageList');
+                holder.insertBefore(newLi, holder.childNodes[0]);
+            }
+
+            function linkServerRequest() {
+                document.getElementById('btnSend').onclick = sendMessage;
+                alert('Connected!');
+            }
+
+            function sendMessage() {
+                var message = document.getElementById('message');
+                proxy.server.sendMessage(message.value);
+                message.value = '';
+            }
+
+        })();
+    </script>
+</body>
+</html>

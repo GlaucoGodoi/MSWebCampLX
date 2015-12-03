@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>raw data view</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <label>Current value </label>
+    <label id="currentValue"></label>
+
+    <script src="../Scripts/jquery-1.6.4.min.js"></script>
+    <script src="../Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="../signalr/hubs"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+
+            var dataDistributorProxy = $.connection.dataDistributor;
+
+            dataDistributorProxy.client.consumeData = consumeData;
+
+            $.connection.hub.start();
+
+            function consumeData(value) {
+
+                var element = document.getElementById('currentValue');
+                element.innerHTML = value;
+            }
+
+        })();
+    </script>
+</body>
+</html>

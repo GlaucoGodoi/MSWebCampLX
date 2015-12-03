@@ -1,0 +1,38 @@
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.UI;
+using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
+using Microsoft.Owin.Cors;
+using Owin;
+
+[assembly: OwinStartup(typeof(DataCollector.Startup))]
+
+namespace DataCollector
+{
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
+            //app.MapSignalR();
+
+            app.Map("/SignalR", p =>
+            {
+                p.UseCors(CorsOptions.AllowAll);
+
+                var hubConfiguration = new HubConfiguration
+                {
+                    // You can enable JSONP by uncommenting line below.
+                    // JSONP requests are insecure but some older browsers (and some
+                    // versions of IE) require JSONP to work cross domain
+
+                    // EnableJSONP = true
+                };
+
+                
+                p.RunSignalR(hubConfiguration);
+            });
+        }
+    }
+}

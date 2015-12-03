@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Smallest SignalR</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <input type="text" id="text" placeholder="message" />
+    <button type="button" id="sendButton">Send message</button>
+    <br />
+    <label>Messages</label>
+    <ul id="messagesList"></ul>
+
+    <script src="../Scripts/jquery-1.6.4.min.js"></script>
+    <script src="../Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="../signalr/hubs"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+
+            //Create our proxy
+            var hubProxy = $.connection.smallestHub;
+
+            //Link the client hooks
+            hubProxy.client.showMessage = showMessage;
+
+            //Start up the connection and link the calls to the server
+            $.connection.hub.start().done(linkSendButton);
+
+            function showMessage(message) {
+                var newLi = document.createElement("li");
+                newLi.innerHTML = message;
+                var ulElement = document.getElementById('messagesList');
+                ulElement.insertBefore(newLi, ulElement.childNodes[0]);
+            }
+
+            function linkSendButton() {
+                document.getElementById('sendButton').onclick = function () {
+                    hubProxy.server.sendMessage(document.getElementById('text').value);
+                    document.getElementById('text').value = "";
+                };
+            }
+
+
+        })();
+    </script>
+</body>
+</html>

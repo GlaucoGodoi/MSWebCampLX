@@ -1,0 +1,10 @@
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\OccurrenceGenerator.exe.config
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\OccurrenceGenerator.exe
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\OccurrenceGenerator.pdb
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\Newtonsoft.Json.dll
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\System.Net.Http.Formatting.dll
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\Newtonsoft.Json.xml
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\bin\Debug\System.Net.Http.Formatting.xml
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\obj\Debug\OccurrenceGenerator.csprojResolveAssemblyReference.cache
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\obj\Debug\OccurrenceGenerator.exe
+C:\Work\Glauco\WebCamp\Code\SignalRAndWebApi\OccurrenceGenerator\obj\Debug\OccurrenceGenerator.pdb

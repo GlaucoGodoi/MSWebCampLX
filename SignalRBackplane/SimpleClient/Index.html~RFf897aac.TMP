@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="well col-md-6 pull-left">
+                <h3>New message</h3>
+                <input id="message" type="text" placeholder="message" class="form-control" />
+                <input id="btnSend" type="button" class="btn btn-success" value="Send" />
+            </div>
+            <div class="col-md-5 pull-right well">
+                <ul id="messageList" class="list-unstyled"></ul>
+            </div>
+        </div>  
+    </div>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="http://localhost:8888/signalr/hubs"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+
+            var proxy = $.connection.simpleHub;
+
+            proxy.client.addNewMessage = addNewMessage;
+
+            $.connection.hub.start().done(linkServerRequest);
+
+            function addNewMessage(message) {
+                var newLi = document.createElement('li');
+                newLi.innerHTML = message;
+                var holder = document.getElementById('messageList');
+                holder.insertBefore(holder.childNodes[0], newLi);
+
+            }
+
+        })();
+    </script>
+</body>
+</html>

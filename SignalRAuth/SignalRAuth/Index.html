@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <label style="color: red;" id="errorMessage"></label>
+<br/>
+    Secure method called :
+<label id="currentCounter"></label>
+    &ensp; times
+    <br />
+    <label id="welcome"></label>
+    <br />
+    <label id="newUsers"></label>
+
+
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="signalr/js"></script>
+
+    <script type="text/javascript">
+        var proxy = $.connection.secureHub;
+
+        proxy.client.welcome = welcome;
+        proxy.client.newUserOnline = newUserOnline;
+        proxy.client.showCounter = showCounter;
+
+        $.connection.hub.start().done(callSecureMethod).fail(handleFail);
+
+        function welcome(message) {
+            $('#welcome').text(message);
+        }
+
+        function newUserOnline(message) {
+            $('#newUsers').text(message);
+        }
+
+        function handleFail(response) {
+            $('#errorMessage').text(response.message);
+        }
+
+        function callSecureMethod() {
+            proxy.server.secureMethod().fail(handleFail);
+        }
+
+        function showCounter(value) {
+            $('#currentCounter').text(value);
+        }
+
+    </script>
+
+</body>
+</html>
